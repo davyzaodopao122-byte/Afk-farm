@@ -1,0 +1,30 @@
+name: Build AFK Farm
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      - name: Compile afk_bot
+        run: cl /std:c++17 /O2 afk_bot.cpp /Fe:afk_bot.exe
+
+      - name: Compile menu
+        run: cl /std:c++17 /O2 menu.cpp /Fe:menu.exe user32.lib gdi32.lib
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: afk-farm-build
+          path: |
+            afk_bot.exe
+            menu.exe
+            stats_watcher.py
