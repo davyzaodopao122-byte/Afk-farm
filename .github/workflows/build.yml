@@ -15,7 +15,7 @@ jobs:
         uses: ilammy/msvc-dev-cmd@v1
 
       - name: Compile afk_bot
-        run: cl /std:c++17 /O2 afk_bot.cpp /Fe:afk_bot.exe
+        run: cl /std:c++17 /O2 afk_bot.cpp /Fe:afk_bot.exe user32.lib
 
       - name: Compile menu
         run: cl /std:c++17 /O2 menu.cpp /Fe:menu.exe user32.lib gdi32.lib
